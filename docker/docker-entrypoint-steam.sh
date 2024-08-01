@@ -8,11 +8,9 @@ do
   # Normalize mod name ot uppercase and only characters, eg. "Always On Server" => ENABLE_ALWAYSONSERVER_MOD
   var="ENABLE_$(echo "${mod^^}" | tr -cd '[A-Z]')_MOD"
 
-  # Remove the mod if it's not enabled
-  if [ "${!var}" != "true" ]; then
-    echo "Removing ${modPath} (${var}=${!var})"
-    rm -rf "$modPath"
-    continue
+  # Copy mods from /mods to the Stardew Valley Mods directory
+  if [ -d "/mods" ]; then
+    cp -r /mods/* /root/.local/share/StardewValley/Mods/
   fi
 
   if [ -f "${modPath}/config.json.template" ]; then
